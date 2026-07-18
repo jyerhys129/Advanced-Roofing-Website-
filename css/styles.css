@@ -130,11 +130,7 @@ p  { color: var(--grey-mid); line-height: 1.75; }
   justify-content: space-between;
   gap: 24px;
 }
-.nav-logo img {
-  height: 52px;
-  width: auto;
-  display: block;
-}
+.nav-logo img { height: 52px; width: auto; display: block; }
 .nav-links {
   display: flex;
   align-items: center;
@@ -231,24 +227,28 @@ p  { color: var(--grey-mid); line-height: 1.75; }
   justify-content: flex-end;
   overflow: hidden;
 }
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url('../images/hero-poster.jpg');
-  background-size: cover;
-  background-position: center 40%;
-}
+/* Video hero background */
 .hero-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 40%;
+  object-position: center center;
+  z-index: 0;
+}
+/* Fallback static bg if video unsupported */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center 30%;
 }
 .hero-overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: linear-gradient(
     to bottom,
     rgba(13,17,23,0.55) 0%,
@@ -1040,6 +1040,186 @@ p  { color: var(--grey-mid); line-height: 1.75; }
 }
 .scroll-top.visible { opacity: 1; transform: translateY(0); }
 .scroll-top svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2.5; }
+/* ── Before & After Slider ── */
+.ba-wrap { max-width: 900px; margin: 0 auto; }
+.ba-slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: ew-resize;
+  user-select: none;
+  touch-action: none;
+  box-shadow: var(--shadow-lg);
+}
+.ba-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  display: block;
+}
+.ba-before-img {
+  clip-path: inset(0 50% 0 0);
+  transition: clip-path 0s;
+}
+.ba-handle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  width: 2px;
+  background: white;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
+}
+.ba-handle-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 46px;
+  height: 46px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
+.ba-label {
+  position: absolute;
+  bottom: 16px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  z-index: 5;
+}
+.ba-label--before { left: 16px; background: rgba(0,0,0,0.55); color: white; }
+.ba-label--after  { right: 16px; background: var(--teal); color: white; }
+.ba-hint {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--grey-mid);
+}
+/* ── Gallery Preview ── */
+.gallery-preview-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.gallery-preview-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: 320px;
+  gap: 10px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+.gp-item {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+}
+.gp-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+.gp-item:hover img { transform: scale(1.05); }
+.gp-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13,17,23,0.7) 0%, transparent 55%);
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.gp-item:hover .gp-overlay { opacity: 1; }
+.gp-overlay span {
+  color: white;
+  font-weight: 600;
+  font-size: 0.87rem;
+  font-family: var(--font-head);
+}
+/* ── FAQ ── */
+.faq-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.faq-header { position: sticky; top: 100px; }
+.faq-list { border-top: 1px solid var(--border); }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0;
+  background: none;
+  border: none;
+  font-family: var(--font-head);
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: var(--dark);
+  cursor: pointer;
+  text-align: left;
+  gap: 20px;
+  transition: color var(--transition);
+}
+.faq-q:hover { color: var(--teal); }
+.faq-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--teal-light);
+  color: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.3rem;
+  line-height: 1;
+  transition: transform 0.25s, background 0.25s, color 0.25s;
+}
+.faq-icon::after { content: '+'; }
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  background: var(--teal);
+  color: white;
+}
+.faq-a {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease;
+}
+.faq-item.open .faq-a { max-height: 220px; }
+.faq-a p {
+  padding-bottom: 24px;
+  color: var(--grey-mid);
+  line-height: 1.75;
+  font-size: 0.93rem;
+}
 /* ── Helpers ── */
 .image-placeholder {
   width: 100%;
@@ -1062,6 +1242,12 @@ p  { color: var(--grey-mid); line-height: 1.75; }
   .features-split { grid-template-columns: 1fr; }
   .features-image-side { min-height: 320px; }
   .features-image-side .img-overlay { background: linear-gradient(to bottom, transparent 60%, var(--grey-light) 100%); }
+}
+@media (max-width: 1024px) {
+  .faq-layout { grid-template-columns: 1fr; gap: 40px; }
+  .faq-header { position: static; }
+  .gallery-preview-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px; }
+  .gp-item--large { grid-column: 1 / -1; }
 }
 @media (max-width: 768px) {
   .nav-links, .nav-phone, .nav-right .btn { display: none; }
@@ -1093,6 +1279,9 @@ p  { color: var(--grey-mid); line-height: 1.75; }
   .form-row { grid-template-columns: 1fr; }
   .features-content-side { padding: 48px 28px; }
   .hero-divider { display: none; }
+  .gallery-preview-grid { grid-template-columns: 1fr; grid-template-rows: repeat(3, 220px); }
+  .gp-item--large { grid-column: auto; }
+  .gp-overlay { opacity: 1; }
 }
 @media (max-width: 480px) {
   .gallery-grid { columns: 1; }
