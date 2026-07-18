@@ -610,9 +610,11 @@
         </div>
         <!-- Right — form -->
         <div class="home-quote-form">
-          <!-- Replace YOUR_FORM_ID with your Formspree form ID (see contact.html for instructions) -->
           <form id="homeQuoteForm">
             <input type="hidden" name="_subject" value="New Quote Request — Advanced Roofing Victoria" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
             <div class="form-row">
               <div class="form-group">
                 <label for="hqFirstName">First Name</label>
@@ -741,18 +743,17 @@
     if (heroVideo) {
       heroVideo.play().catch(() => {});
     }
-    // ── Homepage Quote Form — Formspree submission ──
-    // Replace YOUR_FORM_ID with your Formspree form ID (see contact.html for setup instructions)
-    const HQ_FORMSPREE_ID = 'YOUR_FORM_ID';
+    // ── Homepage Quote Form → advancedroofingvic@gmail.com (FormSubmit) ──
     document.getElementById('homeQuoteForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const form    = e.target;
       const btn     = document.getElementById('hqSubmitBtn');
       const success = document.getElementById('hqFormSuccess');
+      const sendLabel = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send My Request';
       btn.disabled = true;
-      btn.innerHTML = '⏳ Sending…';
+      btn.innerHTML = 'Sending…';
       try {
-        const res = await fetch(`https://formspree.io/f/${HQ_FORMSPREE_ID}`, {
+        const res = await fetch('https://formsubmit.co/ajax/advancedroofingvic@gmail.com', {
           method: 'POST',
           body: new FormData(form),
           headers: { Accept: 'application/json' }
@@ -764,14 +765,14 @@
           setTimeout(() => {
             success.style.display = 'none';
             btn.disabled = false;
-            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send My Request';
+            btn.innerHTML = sendLabel;
           }, 6000);
         } else {
           throw new Error();
         }
       } catch {
         btn.disabled = false;
-        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send My Request';
+        btn.innerHTML = sendLabel;
         alert('Something went wrong — please call Mathew on 0429 995 572.');
       }
     });
