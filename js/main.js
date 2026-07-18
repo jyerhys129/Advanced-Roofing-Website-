@@ -101,10 +101,12 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   });
 });
 // ── Active nav link highlighting ──
-const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+const pathSeg = window.location.pathname.replace(/\/$/, '').split('/').pop() || '';
+const isHome = pathSeg === '' || pathSeg === 'index.html';
 document.querySelectorAll('.nav-links a').forEach(link => {
-  const href = link.getAttribute('href');
-  if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-    link.classList.add('active');
-  }
+  const href = (link.getAttribute('href') || '').replace(/^\//, '');
+  const linkSeg = href.split('#')[0];
+  const matchHome = isHome && (linkSeg === '' || linkSeg === 'index.html' || link.getAttribute('href') === '/');
+  const matchPage = !isHome && (linkSeg === pathSeg || linkSeg === pathSeg + '.html');
+  if (matchHome || matchPage) link.classList.add('active');
 });
