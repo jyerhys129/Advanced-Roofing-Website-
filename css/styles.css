@@ -447,6 +447,8 @@ p  { color: var(--grey-mid); line-height: 1.75; }
   opacity: 0;
   transform: translateX(-4px);
   transition: all var(--transition);
+  pointer-events: none;
+  cursor: default;
 }
 .service-link svg { width: 14px; height: 14px; stroke: var(--teal); fill: none; stroke-width: 2.5; }
 .service-card:hover .service-link { opacity: 1; transform: translateX(0); }
@@ -748,7 +750,7 @@ p  { color: var(--grey-mid); line-height: 1.75; }
   border-radius: var(--radius);
   overflow: hidden;
   position: relative;
-  cursor: pointer;
+  cursor: default;
   background: var(--grey-light);
 }
 .gallery-item img { width: 100%; display: block; transition: transform 0.5s ease; }
@@ -756,15 +758,12 @@ p  { color: var(--grey-mid); line-height: 1.75; }
 .gallery-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(13,17,23,0.6);
+  background: rgba(13,17,23,0.28);
   opacity: 0;
   transition: opacity var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  pointer-events: none;
 }
 .gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-overlay svg { width: 44px; height: 44px; stroke: white; fill: none; stroke-width: 1.5; }
 .gallery-placeholder {
   aspect-ratio: 4/3;
   display: flex;
@@ -1133,7 +1132,8 @@ p  { color: var(--grey-mid); line-height: 1.75; }
   position: relative;
   overflow: hidden;
   display: block;
-  text-decoration: none;
+  cursor: default;
+  pointer-events: auto;
 }
 .gp-item img {
   width: 100%;
