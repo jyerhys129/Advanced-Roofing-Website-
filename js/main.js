@@ -34,7 +34,10 @@ if (hamburger && mobileNav) {
       document.body.style.overflow = 'hidden';
     }
   });
-  // Close on Escape
+  // Close menu when any link is tapped (in-page anchors or otherwise)
+  mobileNav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => closeMobileNav());
+  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMobileNav();
   });
