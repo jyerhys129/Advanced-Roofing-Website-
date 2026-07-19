@@ -30,6 +30,18 @@
 }
 html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 section[id] { scroll-margin-top: 88px; }
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10000;
+  padding: 12px 20px;
+  background: var(--teal);
+  color: var(--white);
+  font-weight: 700;
+  border-radius: 0 0 var(--radius) 0;
+}
+.skip-link:focus { left: 0; }
 body {
   font-family: var(--font-body);
   color: var(--grey-dark);
